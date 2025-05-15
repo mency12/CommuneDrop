@@ -1,0 +1,81 @@
+export interface ApiResponse<T> {
+    success: boolean
+    data?: T
+    error?: {
+        code: string
+        message: string
+        details?: any
+    }
+    meta: {
+        requestId: string
+        timestamp: string
+        path?: string
+        duration?: number
+    }
+}
+
+export enum ApiStatusCodes {
+    SUCCESS = 200,
+    CREATED = 201,
+    ACCEPTED = 202,
+    NO_CONTENT = 204,
+
+    BAD_REQUEST = 400,
+    UNAUTHORIZED = 401,
+    FORBIDDEN = 403,
+    NOT_FOUND = 404,
+    METHOD_NOT_ALLOWED = 405,
+    CONFLICT = 409,
+    UNPROCESSABLE_ENTITY = 422,
+    TOO_MANY_REQUESTS = 429,
+
+    INTERNAL_SERVER_ERROR = 500,
+    NOT_IMPLEMENTED = 501,
+    BAD_GATEWAY = 502,
+    SERVICE_UNAVAILABLE = 503,
+    GATEWAY_TIMEOUT = 504,
+}
+
+export type ErrorCode =
+    | "VALIDATION_ERROR"
+    | "MISSING_REQUIRED_FIELD"
+    | "INVALID_FORMAT"
+
+    | "UNAUTHORIZED"
+    | "INVALID_TOKEN"
+    | "TOKEN_EXPIRED"
+    | "INSUFFICIENT_PERMISSIONS"
+
+    | "RESOURCE_NOT_FOUND"
+    | "RESOURCE_ALREADY_EXISTS"
+
+    | "SERVICE_UNAVAILABLE"
+    | "EXTERNAL_SERVICE_ERROR"
+    | "LOCATION_SERVICE_ERROR"
+
+    | "INTERNAL_SERVER_ERROR"
+    | "DATABASE_ERROR"
+    | "UNEXPECTED_ERROR"
+
+export const ErrorCodes = {
+    VALIDATION_ERROR: "VALIDATION_ERROR" as ErrorCode,
+    MISSING_REQUIRED_FIELD: "MISSING_REQUIRED_FIELD" as ErrorCode,
+    INVALID_FORMAT: "INVALID_FORMAT" as ErrorCode,
+
+    UNAUTHORIZED: "UNAUTHORIZED" as ErrorCode,
+    INVALID_TOKEN: "INVALID_TOKEN" as ErrorCode,
+    TOKEN_EXPIRED: "TOKEN_EXPIRED" as ErrorCode,
+    INSUFFICIENT_PERMISSIONS: "INSUFFICIENT_PERMISSIONS" as ErrorCode,
+
+    RESOURCE_NOT_FOUND: "RESOURCE_NOT_FOUND" as ErrorCode,
+    RESOURCE_ALREADY_EXISTS: "RESOURCE_ALREADY_EXISTS" as ErrorCode,
+
+    SERVICE_UNAVAILABLE: "SERVICE_UNAVAILABLE" as ErrorCode,
+    EXTERNAL_SERVICE_ERROR: "EXTERNAL_SERVICE_ERROR" as ErrorCode,
+    LOCATION_SERVICE_ERROR: "LOCATION_SERVICE_ERROR" as ErrorCode,
+
+    INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR" as ErrorCode,
+    DATABASE_ERROR: "DATABASE_ERROR" as ErrorCode,
+    UNEXPECTED_ERROR: "UNEXPECTED_ERROR" as ErrorCode,
+}
+
