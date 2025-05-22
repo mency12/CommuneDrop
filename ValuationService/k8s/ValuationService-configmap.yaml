@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: valuation-service-configmap
+  labels:
+    app: valuation-service-configmap
+data:
+  port: "3002"
+  location-service: "http://location-api:80/location"
+  authentication-service: "http://auth-api:80/api"
