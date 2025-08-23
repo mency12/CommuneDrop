@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: valuation-api
+  labels:
+    app: valuation-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: valuation-api
+  template:
+    metadata:
+      labels:
+        app: valuation-api
+    spec:
+      containers:
+        - name: valuation-service-container
+          image: jashpatel1511/web-valuation-service:latest
+          ports:
+            - containerPort: 3002
+          env:
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: valuation-service-configmap
+                  key: port
+            - name: LOCATION_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: valuation-service-configmap
+                  key: location-service
+            - name: AUTH_SERVICE_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: valuation-service-configmap
+                  key: authentication-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: valuation-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+spec:
+  selector:
+    app: valuation-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3002
+      name: http
+  type: LoadBalancer
